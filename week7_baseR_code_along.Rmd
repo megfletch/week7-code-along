@@ -52,7 +52,7 @@ my_vector[1]
 # What's the last element?
 my_vector[-1]
 
-What's the seventh element?
+# What's the seventh element?
 my_vector[7]
 
 # Select a range from a vector
@@ -109,24 +109,110 @@ my_matrix[,5] <- 10
 
 ```
 
-### Control flow
+# Control flow
+
+## `for` loops
+
+variable (counter), sequence, expression
+
+```{r}
+for (i in 1:10){
+  print('hello world')
+}
+```
+
+# Generating random nubers
+
+```{r}
+rnorm(n = 5, mean = 10, sd = 2)
+```
+
+
+# Let's combine all of the above
+
+We will use `numeric` to create an empty vector
+We will use `for` to iterate along items of that empty vector
+We will use `[]` to access each slot and fill-in that empty vector
+We will use `rnorm` to sample values from a random normal distribution
+We will plot the trend
+
+$$N_{t}=N_{t-1} + r\left(1 - \frac{N_{t-1}}{K}\right)$$
+
+$$
+r \sim norm(\mu = 1.5, \sigma = 0.8)
+$$
+
+## Writing the code down
+
+```{r}
+# Set up mode parameters
+K <- 100
+nsteps <- 100
+mu <- 0.4
+sigma <- 1
+
+# Set up model objects
+N <- vector(mode = "numeric", length = nsteps)
+N[1] <- 25
+
+# Model it
+for(t in 2:nsteps){
+  r <- rnorm(n = 1, mean = mu, sd = sigma)
+  N[t] <- N[t-1] + r * (1 - (N[t-1] / K))
+}
+
+# Visualize it
+plot(N)
+
+```
 
 
 
+# Something more
+We will use `matrix` to create an empty matrix (rows are time, columns are runs)
+We will repeat the process
 
+```{r}
+# Set up mode parameters
+K <- 100
+nsteps <- 100
+mu <- 0.4
+sigma <- 1
 
+# Set up model objects -Modify
+N <- matrix(data = NA, nrow = nsteps, ncol = 100)
+N[1,] <- 25
 
+# Model it
+for(t in 2:nsteps){
+  r <- rnorm(n = 100, mean = mu, sd = sigma)
+  N[t,] <- N[t-1,] + r * (1 - (N[t-1,] / K))
+}
 
+# Visualize it
+matplot(N, type = "l")
+```
 
+# Bring in your friends!
 
+Conver it to things we know about! `ggplot2`
 
+```{r}
+# Load tidyverse
+library(tidyverse)
 
+# Ctreate data.frame
+my_data <- as_tibble(N) %>% 
+  mutate(time = 1:nsteps) %>% 
+  gather(run, N, -time)
 
-
-
-
-
-
+# Visualize it
+ggplot(data = my_data, mapping = aes(x = time, y = N)) +
+  geom_line(aes(group = run), size = 0.1, alpha = 0.2) +
+  stat_summary(geom = "line", fun = mean, color = "red", size = 1) +
+  theme_bw() +
+  labs(x = "Time (years)", y = "Population size (N)")
+```
 
 
 
