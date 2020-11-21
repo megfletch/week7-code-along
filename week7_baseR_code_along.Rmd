@@ -1,0 +1,166 @@
+---
+title: "Base R Learning"
+author: "Meghan Fletcher"
+date: "11/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# object and classes
+
+## Vectors
+
+### Creating a vector
+
+```{r}
+# Numeric vector
+my_vector <- vector(mode = "numeric", length = 100)
+
+# Logical vector
+my_second_vector <- vector(mode = "logical", length = 20)
+```
+
+### Vector properties
+
+#### Length
+
+```{r}
+# Length of my vector
+length(my_vector)
+length(my_second_vector)
+```
+
+#### Class
+
+```{r}
+class(my_vector)
+class(my_second_vector)
+```
+
+#### Indexing (accessing) vectors
+
+```{r}
+# Using c to createa vector
+my_vector <- c(1:50)
+
+# What's the first element?
+my_vector[1]
+
+# What's the last element?
+my_vector[-1]
+
+What's the seventh element?
+my_vector[7]
+
+# Select a range from a vector
+my_vector[3:7]
+```
+
+## Matrices - vectors that have lengths in two directions
+
+### Creating matrices
+
+```{r}
+# Create a 10 x 10 matrix full of NA's
+my_matrix <- matrix(data = 1:100, nrow = 20, ncol = 5)
+```
+
+### Matris properties
+
+#### Dimensions
+
+```{r}
+# What are the dimensions? (gives number of rows then number of columns)
+dim(my_matrix)
+```
+
+#### Length
+
+```{r}
+# How many elements are there?
+length(my_matrix)
+```
+
+#### Class
+
+```{r}
+class(my_matrix)
+```
+
+#### Indexing (picking sometihng out)
+
+```{r}
+my_matrix[2,]
+
+#Index a column
+my_matrix[,3]
+
+# Index a given cell
+my_matrix[8,3]
+
+# Index and replace
+my_matrix[8,3] <- 100000
+
+# Replace and entire column
+my_matrix[,5] <- 10
+
+```
+
+### Control flow
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
